@@ -12,6 +12,8 @@ import com.codename1.io.Util;
 import com.codename1.ui.Display;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -39,11 +41,12 @@ public class ServerConnector {
     
     public void put(String uri, Map params, IResponseHandler responseHandler)
     {
-        connect(uri, params, false, responseHandler);
+        connect(uri, params, true, responseHandler);
     }
     
     public void connect(String url, Map params, Boolean isPost, final IResponseHandler responseHandler)
     {
+//        ConnectionRequest request = new BodyContentRequest("50")
         ConnectionRequest request = new ConnectionRequest()
         {
             @Override
@@ -59,6 +62,8 @@ public class ServerConnector {
                     }
                 });
             };
+            
+           
         };
         
         request.setPost(isPost);
@@ -68,15 +73,28 @@ public class ServerConnector {
             Iterator entries = params.entrySet().iterator();
             while (entries.hasNext()) {
                 Map.Entry entry = (Map.Entry) entries.next();
-                request.addArgument((String)entry.getKey(), (String)entry.getValue());
+                request.addArgument(entry.getKey().toString(), entry.getValue().toString());
             }
         }
         
         request.setUrl(baseUrl + url);
         request.setContentType("application/json");
-        request.addRequestHeader("Accept", "application/json");
         NetworkManager.getInstance().addToQueue(request);
         
         System.out.println(request.getUrl());
     }
+    
+//    private class BodyContentRequest extends ConnectionRequest
+//    {
+//        private String data;
+//        
+//        BodyContentRequest(String data){
+//            this.data = data;
+//        };
+//         
+//         protected void buildRequestBody(OutputStream os)throws IOException {
+//            OutputStreamWriter w = new OutputStreamWriter(os, "UTF-8");
+//            w.write(data);
+//        };
+//    }
 }

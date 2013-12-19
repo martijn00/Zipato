@@ -48,11 +48,29 @@ public class StateMachine extends StateMachineBase {
     {
         Map loginParams = new HashMap();
         loginParams.put("username", findTfdLoginUsername().getText());
-        loginParams.put("token", User.getToken(nonce, findTfdLoginPassword().getText()));
+        loginParams.put("token", User.getToken(findTfdLoginPassword().getText(), nonce));
         
         DataModel.getInstance().getLogin(loginParams, new IResponseHandler() {
             public void onSucces(Map data) {
-                System.out.println("succes");
+                if(data.get("success").equals("true"))
+                {
+                    //showForm("ScreenNews", null);
+                    Map lightParams = new HashMap();
+                    //lightParams.put("uuid", "a17a13d2-3fa8-44b4-a73d-7835f948eff2");
+                    //lightParams.put("attribute", "8");
+                    lightParams.put("", "50");
+                    
+                    DataModel.getInstance().putLight(lightParams, new IResponseHandler() {
+
+                        public void onSucces(Map data) {
+                            System.out.println("set light: " + data.get("success").toString());
+                        }
+
+                        public void onFailure(int code, String message) {
+                            
+                        }
+                    });
+                }
             }
 
             public void onFailure(int code, String message) {

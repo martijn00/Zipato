@@ -6,6 +6,7 @@
 
 package com.zipato.controller;
 
+import com.codename1.util.Base64;
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.crypto.digests.SHA1Digest;
 import org.bouncycastle.crypto.macs.HMac;
@@ -26,12 +27,10 @@ public class User {
     public static String getSHA1(String value)
     {
         Digest  digest = new SHA1Digest();
-        HMac hmac = new HMac(digest);
-        
-        hmac.update(value.getBytes(), 0, value.getBytes().length);
+        digest.update(value.getBytes(), 0, value.getBytes().length);
         byte[]  resBuf = new byte[digest.getDigestSize()];
-        hmac.doFinal(resBuf, 0);
-        
+        digest.doFinal(resBuf, 0);
+
         return new String(Hex.encode(resBuf));
     }
 }

@@ -35,6 +35,7 @@ public abstract class StateMachineBase extends UIBuilder {
         initVars();
         UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
+        UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
         if(loadTheme) {
             if(res == null) {
@@ -72,6 +73,7 @@ public abstract class StateMachineBase extends UIBuilder {
         initVars();
         UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
+        UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
         if(loadTheme) {
             if(res == null) {
@@ -134,6 +136,18 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Label findLabel(Component root) {
+        return (com.codename1.ui.Label)findByName("Label", root);
+    }
+
+    public com.codename1.ui.Label findLabel() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Label)findByName("Label", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     public com.codename1.ui.TextField findTfdLoginUsername(Component root) {
         return (com.codename1.ui.TextField)findByName("tfdLoginUsername", root);
     }
@@ -147,6 +161,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void exitForm(Form f) {
+        if("ScreenNews".equals(f.getName())) {
+            exitScreenNews(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(f.getName())) {
             exitScreenLogin(f);
             aboutToShowThisContainer = null;
@@ -157,11 +177,21 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void exitScreenNews(Form f) {
+    }
+
+
     protected void exitScreenLogin(Form f) {
     }
 
     protected void beforeShow(Form f) {
     aboutToShowThisContainer = f;
+        if("ScreenNews".equals(f.getName())) {
+            beforeScreenNews(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(f.getName())) {
             beforeScreenLogin(f);
             aboutToShowThisContainer = null;
@@ -172,11 +202,21 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void beforeScreenNews(Form f) {
+    }
+
+
     protected void beforeScreenLogin(Form f) {
     }
 
     protected void beforeShowContainer(Container c) {
         aboutToShowThisContainer = c;
+        if("ScreenNews".equals(c.getName())) {
+            beforeContainerScreenNews(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(c.getName())) {
             beforeContainerScreenLogin(c);
             aboutToShowThisContainer = null;
@@ -187,10 +227,20 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void beforeContainerScreenNews(Container c) {
+    }
+
+
     protected void beforeContainerScreenLogin(Container c) {
     }
 
     protected void postShow(Form f) {
+        if("ScreenNews".equals(f.getName())) {
+            postScreenNews(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(f.getName())) {
             postScreenLogin(f);
             aboutToShowThisContainer = null;
@@ -201,10 +251,20 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void postScreenNews(Form f) {
+    }
+
+
     protected void postScreenLogin(Form f) {
     }
 
     protected void postShowContainer(Container c) {
+        if("ScreenNews".equals(c.getName())) {
+            postContainerScreenNews(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(c.getName())) {
             postContainerScreenLogin(c);
             aboutToShowThisContainer = null;
@@ -215,10 +275,20 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void postContainerScreenNews(Container c) {
+    }
+
+
     protected void postContainerScreenLogin(Container c) {
     }
 
     protected void onCreateRoot(String rootName) {
+        if("ScreenNews".equals(rootName)) {
+            onCreateScreenNews();
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(rootName)) {
             onCreateScreenLogin();
             aboutToShowThisContainer = null;
@@ -229,11 +299,21 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void onCreateScreenNews() {
+    }
+
+
     protected void onCreateScreenLogin() {
     }
 
     protected Hashtable getFormState(Form f) {
         Hashtable h = super.getFormState(f);
+        if("ScreenNews".equals(f.getName())) {
+            getStateScreenNews(f, h);
+            aboutToShowThisContainer = null;
+            return h;
+        }
+
         if("ScreenLogin".equals(f.getName())) {
             getStateScreenLogin(f, h);
             aboutToShowThisContainer = null;
@@ -244,11 +324,21 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void getStateScreenNews(Form f, Hashtable h) {
+    }
+
+
     protected void getStateScreenLogin(Form f, Hashtable h) {
     }
 
     protected void setFormState(Form f, Hashtable state) {
         super.setFormState(f, state);
+        if("ScreenNews".equals(f.getName())) {
+            setStateScreenNews(f, state);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("ScreenLogin".equals(f.getName())) {
             setStateScreenLogin(f, state);
             aboutToShowThisContainer = null;
@@ -256,6 +346,10 @@ public abstract class StateMachineBase extends UIBuilder {
         }
 
             return;
+    }
+
+
+    protected void setStateScreenNews(Form f, Hashtable state) {
     }
 
 
