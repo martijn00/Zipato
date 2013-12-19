@@ -124,6 +124,18 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Button findBtnNewsLight(Component root) {
+        return (com.codename1.ui.Button)findByName("btnNewsLight", root);
+    }
+
+    public com.codename1.ui.Button findBtnNewsLight() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("btnNewsLight", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Button)findByName("btnNewsLight", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     public com.codename1.ui.TextField findTfdLoginPassword(Component root) {
         return (com.codename1.ui.TextField)findByName("tfdLoginPassword", root);
     }
@@ -365,6 +377,12 @@ public abstract class StateMachineBase extends UIBuilder {
             c = c.getParent().getLeadParent();
         }
         if(rootContainerName == null) return;
+        if(rootContainerName.equals("ScreenNews")) {
+            if("btnNewsLight".equals(c.getName())) {
+                onScreenNews_BtnNewsLightAction(c, event);
+                return;
+            }
+        }
         if(rootContainerName.equals("ScreenLogin")) {
             if("tfdLoginUsername".equals(c.getName())) {
                 onScreenLogin_TfdLoginUsernameAction(c, event);
@@ -380,6 +398,9 @@ public abstract class StateMachineBase extends UIBuilder {
             }
         }
     }
+
+      protected void onScreenNews_BtnNewsLightAction(Component c, ActionEvent event) {
+      }
 
       protected void onScreenLogin_TfdLoginUsernameAction(Component c, ActionEvent event) {
       }

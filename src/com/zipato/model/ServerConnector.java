@@ -22,7 +22,7 @@ import java.util.Map;
  * @author Martijn
  */
 public class ServerConnector {
-    private static final ServerConnector INSTANCE = new ServerConnector();
+    private static ServerConnector INSTANCE = new ServerConnector();
     private static String baseUrl = "https://my.zipato.com/zipato-web/rest/";
     
     public static ServerConnector getInstance() {
@@ -46,7 +46,7 @@ public class ServerConnector {
     
     public void connect(String url, Map params, Boolean isPost, final IResponseHandler responseHandler)
     {
-//        ConnectionRequest request = new BodyContentRequest("50")
+        //ConnectionRequest request = new BodyContentRequest("50")
         ConnectionRequest request = new ConnectionRequest()
         {
             @Override
@@ -62,8 +62,6 @@ public class ServerConnector {
                     }
                 });
             };
-            
-           
         };
         
         request.setPost(isPost);
@@ -74,6 +72,7 @@ public class ServerConnector {
             while (entries.hasNext()) {
                 Map.Entry entry = (Map.Entry) entries.next();
                 request.addArgument(entry.getKey().toString(), entry.getValue().toString());
+                System.out.println("Params: " + entry.getKey().toString() + "=" + entry.getValue().toString());
             }
         }
         

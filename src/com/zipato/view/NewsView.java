@@ -17,11 +17,11 @@ import userclasses.StateMachine;
  *
  * @author Martijn
  */
-public class LoginView {
+public class NewsView {
     protected StateMachine ui;
-    public static String FORM_NAME = "ScreenLogin";
+    public static String FORM_NAME = "ScreenNews";
     
-    public LoginView(StateMachine ui) {
+    public NewsView(StateMachine ui) {
         this.ui = ui;
     }
     
@@ -30,21 +30,21 @@ public class LoginView {
         ui.showForm(FORM_NAME, null);
     }
     
-    public void btnLoginLoginAction(Component c, ActionEvent event) 
+    public void btnNewsLightAction(Component c, ActionEvent event) 
     {
-        Map loginParams = new HashMap();
-        loginParams.put("username", ui.findTfdLoginUsername().getText());
-        loginParams.put("token", User.getToken(ui.findTfdLoginPassword().getText(), DataModel.nonce));
-        
-        DataModel.getInstance().getLogin(loginParams, new IResponseHandler() {
+        Map lightParams = new HashMap();
+        //lightParams.put("uuid", "a17a13d2-3fa8-44b4-a73d-7835f948eff2");
+        //lightParams.put("attribute", "8");
+        lightParams.put("p_body", "true");
+
+        DataModel.getInstance().putLight(lightParams, new IResponseHandler() {
+
             public void onSucces(Map data) {
-                if(data.get("success").equals("true"))
-                {
-                    ui.newsView.show();
-                }
+                System.out.println("set light success: " + data.get("success").toString());
             }
+
             public void onFailure(int code, String message) {
-                System.out.println("fail");
+
             }
         });
     }

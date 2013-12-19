@@ -8,11 +8,9 @@ import generated.StateMachineBase;
 import com.codename1.ui.*; 
 import com.codename1.ui.events.*;
 import com.codename1.ui.util.Resources;
-import com.zipato.controller.User;
 import com.zipato.model.DataModel;
-import com.zipato.model.IResponseHandler;
-import java.util.HashMap;
-import java.util.Map;
+import com.zipato.view.LoginView;
+import com.zipato.view.NewsView;
 
 /**
  *
@@ -25,57 +23,30 @@ public class StateMachine extends StateMachineBase {
         // the constructor might be invoked too late due to race conditions that might occur
     }
     
-    private String nonce;
+    public LoginView loginView;
+    public NewsView newsView;
     
     /**
      * this method should be used to initialize variables instead of
      * the constructor/class scope to avoid race conditions
      */
+    @Override
     protected void initVars(Resources res) {
-        DataModel.getInstance().init(new IResponseHandler() {
-            public void onSucces(Map data) {
-                nonce = (String)data.get("nonce");
-            }
-
-            public void onFailure(int code, String message) {
-                
-            }
-        });
+        loginView = new LoginView(this);
+        newsView = new NewsView(this);
+        
+        DataModel.getInstance().init();
     }
-
+    
     @Override
     protected void onScreenLogin_BtnLoginLoginAction(Component c, ActionEvent event) 
     {
-        Map loginParams = new HashMap();
-        loginParams.put("username", findTfdLoginUsername().getText());
-        loginParams.put("token", User.getToken(findTfdLoginPassword().getText(), nonce));
-        
-        DataModel.getInstance().getLogin(loginParams, new IResponseHandler() {
-            public void onSucces(Map data) {
-                if(data.get("success").equals("true"))
-                {
-                    //showForm("ScreenNews", null);
-                    Map lightParams = new HashMap();
-                    //lightParams.put("uuid", "a17a13d2-3fa8-44b4-a73d-7835f948eff2");
-                    //lightParams.put("attribute", "8");
-                    lightParams.put("", "50");
-                    
-                    DataModel.getInstance().putLight(lightParams, new IResponseHandler() {
+        loginView.btnLoginLoginAction(c, event);
+    }
 
-                        public void onSucces(Map data) {
-                            System.out.println("set light: " + data.get("success").toString());
-                        }
-
-                        public void onFailure(int code, String message) {
-                            
-                        }
-                    });
-                }
-            }
-
-            public void onFailure(int code, String message) {
-                System.out.println("fail");
-            }
-        });
+    @Override
+    protected void onScreenNews_BtnNewsLightAction(Component c, ActionEvent event) 
+    {
+        newsView.btnNewsLightAction(c, event);
     }
 }
