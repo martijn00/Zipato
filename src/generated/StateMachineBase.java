@@ -110,38 +110,38 @@ public abstract class StateMachineBase extends UIBuilder {
         this(res, null, loadTheme);
     }
 
-    public com.codename1.ui.Button findButton(Component root) {
-        return (com.codename1.ui.Button)findByName("Button", root);
+    public com.codename1.ui.Button findBtnLoginLogin(Component root) {
+        return (com.codename1.ui.Button)findByName("btnLoginLogin", root);
     }
 
-    public com.codename1.ui.Button findButton() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("Button", Display.getInstance().getCurrent());
+    public com.codename1.ui.Button findBtnLoginLogin() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("btnLoginLogin", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("Button", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Button)findByName("btnLoginLogin", aboutToShowThisContainer);
         }
         return cmp;
     }
 
-    public com.codename1.ui.TextField findTextField1(Component root) {
-        return (com.codename1.ui.TextField)findByName("TextField1", root);
+    public com.codename1.ui.TextField findTfdLoginPassword(Component root) {
+        return (com.codename1.ui.TextField)findByName("tfdLoginPassword", root);
     }
 
-    public com.codename1.ui.TextField findTextField1() {
-        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("TextField1", Display.getInstance().getCurrent());
+    public com.codename1.ui.TextField findTfdLoginPassword() {
+        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("tfdLoginPassword", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextField)findByName("TextField1", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.TextField)findByName("tfdLoginPassword", aboutToShowThisContainer);
         }
         return cmp;
     }
 
-    public com.codename1.ui.TextField findTextField(Component root) {
-        return (com.codename1.ui.TextField)findByName("TextField", root);
+    public com.codename1.ui.TextField findTfdLoginUsername(Component root) {
+        return (com.codename1.ui.TextField)findByName("tfdLoginUsername", root);
     }
 
-    public com.codename1.ui.TextField findTextField() {
-        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("TextField", Display.getInstance().getCurrent());
+    public com.codename1.ui.TextField findTfdLoginUsername() {
+        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("tfdLoginUsername", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextField)findByName("TextField", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.TextField)findByName("tfdLoginUsername", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -272,28 +272,28 @@ public abstract class StateMachineBase extends UIBuilder {
         }
         if(rootContainerName == null) return;
         if(rootContainerName.equals("ScreenLogin")) {
-            if("TextField".equals(c.getName())) {
-                onScreenLogin_TextFieldAction(c, event);
+            if("tfdLoginUsername".equals(c.getName())) {
+                onScreenLogin_TfdLoginUsernameAction(c, event);
                 return;
             }
-            if("TextField1".equals(c.getName())) {
-                onScreenLogin_TextField1Action(c, event);
+            if("tfdLoginPassword".equals(c.getName())) {
+                onScreenLogin_TfdLoginPasswordAction(c, event);
                 return;
             }
-            if("Button".equals(c.getName())) {
-                onScreenLogin_ButtonAction(c, event);
+            if("btnLoginLogin".equals(c.getName())) {
+                onScreenLogin_BtnLoginLoginAction(c, event);
                 return;
             }
         }
     }
 
-      protected void onScreenLogin_TextFieldAction(Component c, ActionEvent event) {
+      protected void onScreenLogin_TfdLoginUsernameAction(Component c, ActionEvent event) {
       }
 
-      protected void onScreenLogin_TextField1Action(Component c, ActionEvent event) {
+      protected void onScreenLogin_TfdLoginPasswordAction(Component c, ActionEvent event) {
       }
 
-      protected void onScreenLogin_ButtonAction(Component c, ActionEvent event) {
+      protected void onScreenLogin_BtnLoginLoginAction(Component c, ActionEvent event) {
       }
 
 }
