@@ -6,11 +6,8 @@
 
 package com.zipato.controller;
 
-import com.codename1.util.Base64;
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.crypto.digests.SHA1Digest;
-import org.bouncycastle.crypto.macs.HMac;
-import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.util.encoders.Hex;
 
 /**
@@ -24,7 +21,7 @@ public class User {
         return getSHA1(nonce + getSHA1(password));
     }
     
-    public static String getSHA1(String value)
+    private static String getSHA1(String value)
     {
         Digest  digest = new SHA1Digest();
         digest.update(value.getBytes(), 0, value.getBytes().length);

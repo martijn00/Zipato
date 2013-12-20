@@ -5,11 +5,11 @@
 package com.zipato.view;
 
 import com.codename1.ui.Component;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionEvent;
-import com.zipato.controller.User;
 import com.zipato.model.DataModel;
 import com.zipato.model.IResponseHandler;
-import java.util.HashMap;
 import java.util.Map;
 import userclasses.StateMachine;
 
@@ -30,17 +30,22 @@ public class LoginView {
         ui.showForm(FORM_NAME, null);
     }
     
-    public void btnLoginLoginAction(Component c, ActionEvent event) 
+    public void beforeShow(Form f)
     {
-        Map loginParams = new HashMap();
-        loginParams.put("username", ui.findTfdLoginUsername().getText());
-        loginParams.put("token", User.getToken(ui.findTfdLoginPassword().getText(), DataModel.nonce));
         
-        DataModel.getInstance().getLogin(loginParams, new IResponseHandler() {
+    }
+    
+    public void btnLoginAction(Component c, ActionEvent event) 
+    {
+        DataModel.getInstance().getLogin(ui.findTfdLoginUsername().getText(), ui.findTfdLoginPassword().getText(), new IResponseHandler() {
             public void onSucces(Map data) {
                 if(data.get("success").equals("true"))
                 {
-                    ui.newsView.show();
+                    ui.homeView.show();
+                }
+                else
+                {
+                    Dialog.show("Error login", "Use correct username and password", "OK", "Cancel");
                 }
             }
             public void onFailure(int code, String message) {

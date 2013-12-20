@@ -13,7 +13,6 @@ import com.codename1.ui.Display;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -46,8 +45,12 @@ public class ServerConnector {
     
     public void connect(String url, Map params, Boolean isPost, final IResponseHandler responseHandler)
     {
-        //ConnectionRequest request = new BodyContentRequest("50")
-        ConnectionRequest request = new ConnectionRequest()
+        String bodyContent = "";
+        
+        if(params != null && params.get("bodyContent") != null)
+            bodyContent = params.get("bodyContent").toString();
+        
+        ConnectionRequest request = new BodyContentRequest(bodyContent)
         {
             @Override
             protected void readResponse(InputStream input) throws IOException {
@@ -66,7 +69,7 @@ public class ServerConnector {
         
         request.setPost(isPost);
         
-        if (params != null) 
+        if (params != null && params.get("bodyContent") == null) 
         {
             Iterator entries = params.entrySet().iterator();
             while (entries.hasNext()) {
@@ -78,22 +81,27 @@ public class ServerConnector {
         
         request.setUrl(baseUrl + url);
         request.setContentType("application/json");
+        if(DataModel.jsessionid != null)
+            request.addRequestHeader("Cookie", "JSESSIONID=" + DataModel.jsessionid);
         NetworkManager.getInstance().addToQueue(request);
         
         System.out.println(request.getUrl());
     }
     
-//    private class BodyContentRequest extends ConnectionRequest
-//    {
-//        private String data;
-//        
-//        BodyContentRequest(String data){
-//            this.data = data;
-//        };
-//         
-//         protected void buildRequestBody(OutputStream os)throws IOException {
-//            OutputStreamWriter w = new OutputStreamWriter(os, "UTF-8");
-//            w.write(data);
-//        };
-//    }
+    private class BodyContentRequest extends ConnectionRequest
+    {
+        private String data;
+        
+        BodyContentRequest(String data){
+            this.data = data;
+        };
+         
+        @Override
+         protected void buildRequestBody(OutputStream os)throws IOException {
+             if(!data.equals(""))
+                os.write(data.getBytes("UTF-8"));
+             else
+                 super.buildRequestBody(os);
+        };
+    }
 }

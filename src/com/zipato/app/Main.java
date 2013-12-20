@@ -3,6 +3,9 @@ package com.zipato.app;
 
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
+import com.zipato.model.DataModel;
+import com.zipato.model.IResponseHandler;
+import java.util.Map;
 import userclasses.StateMachine;
 
 public class Main {
@@ -33,9 +36,19 @@ public class Main {
     }
 
     public void stop() {
+        DataModel.getInstance().getLogout(new IResponseHandler() {
+            public void onSucces(Map data) {
+                System.out.println("logout");
+            }
+            public void onFailure(int code, String message) {
+
+            }
+        });
+        
         current = Display.getInstance().getCurrent();
     }
     
     public void destroy() {
+        
     }
 }

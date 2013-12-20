@@ -37,6 +37,8 @@ public abstract class StateMachineBase extends UIBuilder {
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
+        UIBuilder.registerCustomComponent("Slider", com.codename1.ui.Slider.class);
+        UIBuilder.registerCustomComponent("ContainerList", com.codename1.ui.list.ContainerList.class);
         if(loadTheme) {
             if(res == null) {
                 try {
@@ -75,6 +77,8 @@ public abstract class StateMachineBase extends UIBuilder {
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
+        UIBuilder.registerCustomComponent("Slider", com.codename1.ui.Slider.class);
+        UIBuilder.registerCustomComponent("ContainerList", com.codename1.ui.list.ContainerList.class);
         if(loadTheme) {
             if(res == null) {
                 try {
@@ -120,6 +124,30 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("btnLoginLogin", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.Button)findByName("btnLoginLogin", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.list.ContainerList findCtlLightsLights(Component root) {
+        return (com.codename1.ui.list.ContainerList)findByName("ctlLightsLights", root);
+    }
+
+    public com.codename1.ui.list.ContainerList findCtlLightsLights() {
+        com.codename1.ui.list.ContainerList cmp = (com.codename1.ui.list.ContainerList)findByName("ctlLightsLights", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.list.ContainerList)findByName("ctlLightsLights", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Slider findSlrNewsLight(Component root) {
+        return (com.codename1.ui.Slider)findByName("slrNewsLight", root);
+    }
+
+    public com.codename1.ui.Slider findSlrNewsLight() {
+        com.codename1.ui.Slider cmp = (com.codename1.ui.Slider)findByName("slrNewsLight", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Slider)findByName("slrNewsLight", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -185,6 +213,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(f.getName())) {
+            exitScreenLights(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -194,6 +228,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void exitScreenLogin(Form f) {
+    }
+
+
+    protected void exitScreenLights(Form f) {
     }
 
     protected void beforeShow(Form f) {
@@ -210,6 +248,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(f.getName())) {
+            beforeScreenLights(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -219,6 +263,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void beforeScreenLogin(Form f) {
+    }
+
+
+    protected void beforeScreenLights(Form f) {
     }
 
     protected void beforeShowContainer(Container c) {
@@ -235,6 +283,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(c.getName())) {
+            beforeContainerScreenLights(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -244,6 +298,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void beforeContainerScreenLogin(Container c) {
+    }
+
+
+    protected void beforeContainerScreenLights(Container c) {
     }
 
     protected void postShow(Form f) {
@@ -259,6 +317,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(f.getName())) {
+            postScreenLights(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -268,6 +332,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void postScreenLogin(Form f) {
+    }
+
+
+    protected void postScreenLights(Form f) {
     }
 
     protected void postShowContainer(Container c) {
@@ -283,6 +351,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(c.getName())) {
+            postContainerScreenLights(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -292,6 +366,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void postContainerScreenLogin(Container c) {
+    }
+
+
+    protected void postContainerScreenLights(Container c) {
     }
 
     protected void onCreateRoot(String rootName) {
@@ -307,6 +385,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(rootName)) {
+            onCreateScreenLights();
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -316,6 +400,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void onCreateScreenLogin() {
+    }
+
+
+    protected void onCreateScreenLights() {
     }
 
     protected Hashtable getFormState(Form f) {
@@ -332,6 +420,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return h;
         }
 
+        if("ScreenLights".equals(f.getName())) {
+            getStateScreenLights(f, h);
+            aboutToShowThisContainer = null;
+            return h;
+        }
+
             return h;
     }
 
@@ -341,6 +435,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void getStateScreenLogin(Form f, Hashtable h) {
+    }
+
+
+    protected void getStateScreenLights(Form f, Hashtable h) {
     }
 
     protected void setFormState(Form f, Hashtable state) {
@@ -357,6 +455,12 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
+        if("ScreenLights".equals(f.getName())) {
+            setStateScreenLights(f, state);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
             return;
     }
 
@@ -366,6 +470,22 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void setStateScreenLogin(Form f, Hashtable state) {
+    }
+
+
+    protected void setStateScreenLights(Form f, Hashtable state) {
+    }
+
+    protected boolean setListModel(com.codename1.ui.list.ContainerList cmp) {
+        String listName = cmp.getName();
+        if("ctlLightsLights".equals(listName)) {
+            return initListModelCtlLightsLights(cmp);
+        }
+        return super.setListModel(cmp);
+    }
+
+    protected boolean initListModelCtlLightsLights(com.codename1.ui.list.ContainerList cmp) {
+        return false;
     }
 
     protected void handleComponentAction(Component c, ActionEvent event) {
@@ -397,6 +517,12 @@ public abstract class StateMachineBase extends UIBuilder {
                 return;
             }
         }
+        if(rootContainerName.equals("ScreenLights")) {
+            if("ctlLightsLights".equals(c.getName())) {
+                onScreenLights_CtlLightsLightsAction(c, event);
+                return;
+            }
+        }
     }
 
       protected void onScreenNews_BtnNewsLightAction(Component c, ActionEvent event) {
@@ -409,6 +535,9 @@ public abstract class StateMachineBase extends UIBuilder {
       }
 
       protected void onScreenLogin_BtnLoginLoginAction(Component c, ActionEvent event) {
+      }
+
+      protected void onScreenLights_CtlLightsLightsAction(Component c, ActionEvent event) {
       }
 
 }
