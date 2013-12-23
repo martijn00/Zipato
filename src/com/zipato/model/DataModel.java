@@ -55,7 +55,7 @@ public class DataModel {
     
     public void getLights(IResponseHandler responseHandler)
     {
-        ServerConnector.getInstance().get("lights", null, responseHandler);
+        ServerConnector.getInstance().get("lights/", null, responseHandler);
     }
     
     public void putLight(String uuid, int value, IResponseHandler responseHandler)
@@ -63,6 +63,6 @@ public class DataModel {
         Map params = new HashMap();
         params.put("bodyContent", value);
         
-        ServerConnector.getInstance().put("lights/a17a13d2-3fa8-44b4-a73d-7835f948eff2/attributes/8/value", params, responseHandler);
+        ServerConnector.getInstance().put("lights/" + uuid + "/attributes/8/value", params, responseHandler);
     }
 }

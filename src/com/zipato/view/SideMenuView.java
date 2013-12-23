@@ -15,6 +15,9 @@ import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.zipato.model.DataModel;
+import com.zipato.model.IResponseHandler;
+import java.util.Map;
 import userclasses.StateMachine;
 
 /**
@@ -61,6 +64,26 @@ public class SideMenuView {
                         public void run() {
                             Display.getInstance().getCurrent().setTransitionOutAnimator(CommonTransitions.createEmpty());
                             ui.lightsView.show();
+                        }
+                    });
+                }
+            }));
+            
+            f.addCommand(buildMenuCommand("Logout", "", new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    SideMenuBar.closeCurrentMenu(new Runnable() {
+                        @Override
+                        public void run() {
+                            DataModel.getInstance().getLogout(new IResponseHandler() {
+                                public void onSucces(Map data) {
+                                    System.out.println("logout");
+                                    Display.getInstance().exitApplication();
+                                }
+                                public void onFailure(int code, String message) {
+
+                                }
+                            });
                         }
                     });
                 }

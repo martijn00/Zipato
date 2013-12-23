@@ -40,6 +40,8 @@ public class StateMachine extends StateMachineBase {
      */
     @Override
     protected void initVars(Resources res) {
+        INSTANCE = this;
+        
         loginView = new LoginView(this);
         homeView = new HomeView(this);
         lightsView = new LightsView(this);
@@ -51,6 +53,11 @@ public class StateMachine extends StateMachineBase {
     public static Resources getResourceFile()
     {
         return INSTANCE.fetchResourceFile();
+    }
+    
+    public static Container createContainer(String name)
+    {
+        return INSTANCE.createContainer(INSTANCE.fetchResourceFile(), name);
     }
     
     @Override
@@ -75,5 +82,10 @@ public class StateMachine extends StateMachineBase {
     @Override
     protected void beforeScreenLogin(Form f) {
         loginView.beforeShow(f);
+    }
+
+    @Override
+    protected void beforeScreenLights(Form f) {
+        lightsView.beforeShow(f);
     }
 }
