@@ -71,6 +71,8 @@ public class LightsView {
                             
                     f.addComponent(lightContainer);
                 }
+                
+                f.revalidate();
             }
 
             public void onFailure(int code, String message) {

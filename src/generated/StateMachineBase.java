@@ -35,6 +35,7 @@ public abstract class StateMachineBase extends UIBuilder {
         initVars();
         UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
+        UIBuilder.registerCustomComponent("CheckBox", com.codename1.ui.CheckBox.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
         UIBuilder.registerCustomComponent("Slider", com.codename1.ui.Slider.class);
@@ -75,6 +76,7 @@ public abstract class StateMachineBase extends UIBuilder {
         initVars();
         UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
+        UIBuilder.registerCustomComponent("CheckBox", com.codename1.ui.CheckBox.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
         UIBuilder.registerCustomComponent("Slider", com.codename1.ui.Slider.class);
@@ -124,6 +126,18 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.Slider cmp = (com.codename1.ui.Slider)findByName("sldLightControl", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.Slider)findByName("sldLightControl", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.CheckBox findCbxLoginRemember(Component root) {
+        return (com.codename1.ui.CheckBox)findByName("cbxLoginRemember", root);
+    }
+
+    public com.codename1.ui.CheckBox findCbxLoginRemember() {
+        com.codename1.ui.CheckBox cmp = (com.codename1.ui.CheckBox)findByName("cbxLoginRemember", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.CheckBox)findByName("cbxLoginRemember", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -644,6 +658,10 @@ public abstract class StateMachineBase extends UIBuilder {
                 onScreenLogin_BtnLoginLoginAction(c, event);
                 return;
             }
+            if("cbxLoginRemember".equals(c.getName())) {
+                onScreenLogin_CbxLoginRememberAction(c, event);
+                return;
+            }
         }
         if(rootContainerName.equals("ViewLight")) {
             if("btnLightSwitch".equals(c.getName())) {
@@ -667,6 +685,9 @@ public abstract class StateMachineBase extends UIBuilder {
       }
 
       protected void onScreenLogin_BtnLoginLoginAction(Component c, ActionEvent event) {
+      }
+
+      protected void onScreenLogin_CbxLoginRememberAction(Component c, ActionEvent event) {
       }
 
       protected void onViewLight_BtnLightSwitchAction(Component c, ActionEvent event) {

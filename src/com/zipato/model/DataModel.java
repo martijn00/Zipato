@@ -23,6 +23,11 @@ public class DataModel {
         return INSTANCE;
     }
     
+    public Boolean isInitialized()
+    {
+        return nonce != null && jsessionid !=null;
+    }
+    
     public void init()
     {
         ServerConnector.getInstance().get("user/init", null, new IResponseHandler() {
@@ -35,6 +40,21 @@ public class DataModel {
             }
             public void onFailure(int code, String message) {
                 
+            }
+        });
+    }
+    
+    public void init(final IResponseHandler responseHandler)
+    {
+        ServerConnector.getInstance().get("user/init", null, new IResponseHandler() {
+            public void onSucces(Map data) {
+                nonce = (String)data.get("nonce");
+                jsessionid = (String)data.get("jsessionid");
+                
+                responseHandler.onSucces(data);
+            }
+            public void onFailure(int code, String message) {
+                responseHandler.onFailure(code, message);
             }
         });
     }

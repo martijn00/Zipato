@@ -8,13 +8,10 @@ import generated.StateMachineBase;
 import com.codename1.ui.*; 
 import com.codename1.ui.events.*;
 import com.codename1.ui.util.Resources;
-import com.zipato.model.DataModel;
-import com.zipato.model.IResponseHandler;
 import com.zipato.view.LightsView;
 import com.zipato.view.LoginView;
 import com.zipato.view.HomeView;
 import com.zipato.view.SideMenuView;
-import java.util.Map;
 
 /**
  *
@@ -46,8 +43,6 @@ public class StateMachine extends StateMachineBase {
         homeView = new HomeView(this);
         lightsView = new LightsView(this);
         sideMenuView = new SideMenuView(this);
-        
-        DataModel.getInstance().init();
     }
     
     public static Resources getResourceFile()

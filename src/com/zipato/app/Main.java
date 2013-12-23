@@ -36,6 +36,8 @@ public class Main {
     }
 
     public void stop() {
+        current = Display.getInstance().getCurrent();
+        
         DataModel.getInstance().getLogout(new IResponseHandler() {
             public void onSucces(Map data) {
                 System.out.println("logout");
@@ -44,8 +46,6 @@ public class Main {
 
             }
         });
-        
-        current = Display.getInstance().getCurrent();
     }
     
     public void destroy() {
